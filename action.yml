@@ -1,5 +1,7 @@
 name: 'Env Replacer'
-description: 'Greet someone and record the time'
+description: '替换配置文件中的预设值'
+icon: 'code'
+color: 'blue'
 inputs:
   remote_script:
     description: '远程脚本的路径'
