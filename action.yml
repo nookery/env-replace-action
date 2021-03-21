@@ -1,0 +1,29 @@
+name: 'Env Replacer'
+description: 'Greet someone and record the time'
+inputs:
+  remote_script:
+    description: '远程脚本的路径'
+    required: true
+  host:
+    description: '远程服务器地址'
+    required: true
+  port:
+    description: '远程服务器 SSH 端口'
+    required: false
+    default: '22'
+  username:
+    description: '远程服务器用户名'
+    required: false
+    default: 'root'
+  key:
+    description: 'SSH 私钥'
+    required: true
+  target:
+    description: '当前项目下要替换的配置文件'
+    required: false
+    default: '.env'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.who-to-greet }}
