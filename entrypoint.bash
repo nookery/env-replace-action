@@ -51,7 +51,11 @@ for key in ${array[@]}; do
 
     echo $(env) > env
 
-    if  grep -q '^DB_TEST=' env ; then echo 'DB_TEST yes';else echo 'DB_TEST no'; fi
+    if  grep -q "$key" env ; then
+      echo "$key yes";
+    else
+      echo "$key no";
+    fi
 
     # 找出配置文件中的环境变量，并替换，请根据实际的格式修改这里的表达式
     echo -e "  - 替换${key} => ${value}"
@@ -71,4 +75,4 @@ echo -e "\033[32m---- 环境变量替换处理完成\r\n\033[0m"
 #
 
 cat /dev/null > ~/.bash_history
-rm key'
+rm key
