@@ -15,6 +15,7 @@ echo -e "\033[32m----\033[0m \r\n"
 #  从远程服务器下载变量配置脚本
 #--------------------------------------------------
 #
+
 # 复制私钥到本地
 echo "$INPUT_KEY" > key
 chmod 400 key
@@ -26,6 +27,16 @@ if [ $INPUT_REMOTE_SCRIPT ];then
   # 执行变量配置脚本
   source ./script
 fi
+
+#--------------------------------------------------
+#  将所有变量存入文件，用于下文判断变量是否存在
+#--------------------------------------------------
+#
+
+env > env.txt
+cat script env.txt > variables.txt
+
+cat variables
 
 #
 #--------------------------------------------------
@@ -42,9 +53,6 @@ keys=$(eval echo $(sed -n "s/{{\([A-Z0-9a-z_]\{1,200\}\)}}$/\1/p" "$INPUT_TARGET
 # shellcheck disable=SC2206
 array=(${keys// / })
 
-echo $(env) > env
-cat env
-
 # 逐个替换
 # shellcheck disable=SC2068
 for key in ${array[@]}; do
@@ -52,14 +60,17 @@ for key in ${array[@]}; do
     # 转义value中的特殊字符（比如&符号，不转义会被下面的sed命令识别成特殊符号）
     value=${value/\&/\\&}
 
-    if  grep -q "$key" env ; then
-      echo "$key yes";
+    if  grep -q "^$key=" variables.txt ; then
+      echo "$key 已定义";
     else
-      echo "$key no";
+      echo "$key 未定义";
+      echo -e "\033[5;31m$key的值未配置 \033[0m"
+      echo -e "\033[32m----\033[0m \r\n"
+      exit 1
     fi
 
     # 找出配置文件中的环境变量，并替换，请根据实际的格式修改这里的表达式
-    echo -e "  - 替换${key} => ${value}"
+    echo -e "  - 替换${key}"
     sed -i "s/{{$key}}/$value/" "$INPUT_TARGET"
 done
 
