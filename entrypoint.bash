@@ -49,19 +49,9 @@ for key in ${array[@]}; do
     # 转义value中的特殊字符（比如&符号，不转义会被下面的sed命令识别成特殊符号）
     value=${value/\&/\\&}
 
-    env
+    echo $(env) > env
 
-#    echo $(env) > env
-#
-#if  grep -q '^AUTH_SOCK=' env ; then echo 'AUTH_SOCK yes';else echo 'AUTH_SOCK no'; fi
-#
-#if  grep -q '^APP_URL=' env ; then echo 'APP_URL yes';else echo 'APP_URL no'; fi
-#
-#if  grep -q APP_ME= env ; then echo 'APP_ME yes';else echo 'APP_ME no'; fi
-#
-#if  grep -q APP_HE= env ; then echo 'APP_HE yes';else echo 'APP_HE no'; fi
-#
-#exit;
+    if  grep -q '^DB_TEST=' env ; then echo 'DB_TEST yes';else echo 'DB_TEST no'; fi
 
     # 找出配置文件中的环境变量，并替换，请根据实际的格式修改这里的表达式
     echo -e "  - 替换${key} => ${value}"
