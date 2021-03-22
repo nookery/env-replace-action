@@ -16,10 +16,6 @@ jobs:
         env:
           APP_URL: test.com
           REDIS_PASSWORD: ''
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          remote_script: /www/set_env.sh
 
       - name: 保留 .env 文件
         uses: actions/upload-artifact@v2
