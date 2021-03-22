@@ -48,12 +48,12 @@ for key in ${array[@]}; do
     eval value=\$"${key}"
     # 转义value中的特殊字符（比如&符号，不转义会被下面的sed命令识别成特殊符号）
     value=${value/\&/\\&}
-    if [ ! -n "$value" ]; then
-        echo -e "\033[5;31m$key的值未配置或者为空 \033[0m"
-        echo -e "\033[32m----\033[0m \r\n"
-        exit 1
+    if (set -u; : $key); then
+      echo -e "  - 替换${key}"
     else
-        echo -e "  - 替换${key}"
+      echo -e "\033[5;31m$key的值未配置 \033[0m"
+      echo -e "\033[32m----\033[0m \r\n"
+      exit 1
     fi
 
     # 找出配置文件中的环境变量，并替换，请根据实际的格式修改这里的表达式
