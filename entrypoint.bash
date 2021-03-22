@@ -58,18 +58,16 @@ for key in ${array[@]}; do
     # 转义value中的特殊字符（比如&符号，不转义会被下面的sed命令识别成特殊符号）
     value=${value/\&/\\&}
 
-    if  grep -q "^$key=" variables.txt ; then
-      echo "$key 已定义";
+    if grep -q "^$key=" variables.txt ; then
+      # 找出配置文件中的环境变量，并替换，请根据实际的格式修改这里的表达式
+      echo -e "  - 替换${key}"
+      sed -i "s/{{$key}}/$value/" "$INPUT_TARGET"
     else
       echo "$key 未定义";
       echo -e "\033[5;31m$key的值未配置 \033[0m"
       echo -e "\033[32m----\033[0m \r\n"
       exit 1
     fi
-
-    # 找出配置文件中的环境变量，并替换，请根据实际的格式修改这里的表达式
-    echo -e "  - 替换${key}"
-    sed -i "s/{{$key}}/$value/" "$INPUT_TARGET"
 done
 
 echo -e "\033[32m---- 环境变量替换处理完成\r\n\033[0m"
