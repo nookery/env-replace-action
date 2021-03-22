@@ -1,8 +1,17 @@
 #!/bin/bash
 
-echo $ENV_APP_URL
-echo $APP_URL
-env
+if  grep -q APP_URL env ; then
+  echo yes;
+else
+  echo no;
+fi
+
+if  grep -q APP_TEST env ; then
+  echo yes;
+else
+  echo no; 
+fi
+
 exit;
 
 echo -e "\033[32m---- 参数 ----\033[0m"
