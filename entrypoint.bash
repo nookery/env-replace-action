@@ -36,8 +36,6 @@ fi
 env > env.txt
 cat script env.txt > variables.txt
 
-cat variables.txt
-
 #
 #--------------------------------------------------
 #  将.env文件中的{{ABC}}替换成环境变量ABC的值
@@ -88,3 +86,6 @@ echo -e "\033[32m---- 环境变量替换处理完成\r\n\033[0m"
 
 cat /dev/null > ~/.bash_history
 rm key
+rm env.txt
+rm variables.txt
+rm script
