@@ -1,6 +1,8 @@
 #!/bin/bash
 
 echo $ENV_APP_URL
+echo $APP_URL
+env
 exit;
 
 echo -e "\033[32m---- 参数 ----\033[0m"
