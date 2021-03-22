@@ -15,7 +15,7 @@ jobs:
       - uses: nookery/env-replace-action@debug
         env:
           APP_URL: test.com
-          APP_ME: ''
+          REDIS_PASSWORD: ''
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           key: ${{ secrets.DEPLOY_KEY }}

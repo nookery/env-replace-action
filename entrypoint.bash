@@ -36,7 +36,7 @@ fi
 env > env.txt
 cat script env.txt > variables.txt
 
-cat variables
+cat variables.txt
 
 #
 #--------------------------------------------------
