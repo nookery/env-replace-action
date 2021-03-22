@@ -1,8 +1,21 @@
 #!/bin/bash
 
-set -u
+ABC='abc'
 
-echo '-e "\033[32m---- 参数 ----\033[0m"
+TEST="ABC"
+
+sh is_defined.bash
+
+if [ $? -ne 0 ]
+then
+  echo '错误'
+  exit
+fi
+
+echo 'go on'
+exit;
+
+echo -e "\033[32m---- 参数 ----\033[0m"
 echo -e "待处理的文件：$INPUT_TARGET"
 echo -e "变量脚本文件：$INPUT_USERNAME@$INPUT_HOST:$INPUT_REMOTE_SCRIPT"
 echo -e "\033[32m----\033[0m \r\n"
