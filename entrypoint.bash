@@ -1,14 +1,14 @@
 #!/bin/bash
 
-target = $(env | grep HELLO=)
-if [ $target == "" ] ; then
+target=$(env | grep HELLO=)
+if [ $target -eq "" ] ; then
   echo '变量HELLO未定义';
 else
   echo no;
 fi
 
-target = $(env | grep APP_ME | cut -d "=" -f 2)
-if [ $target == "" ] ; then
+target=$(env | grep APP_ME | cut -d "=" -f 2)
+if [ $target -eq "" ] ; then
   echo '变量APP_ME的值为空';
 else
   echo no;
