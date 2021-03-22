@@ -26,6 +26,8 @@ if [ $INPUT_REMOTE_SCRIPT ];then
 
   # 执行变量配置脚本
   source ./script
+else
+  echo '' > ./script
 fi
 
 #--------------------------------------------------
@@ -63,7 +65,7 @@ for key in ${array[@]}; do
       echo -e "  - 替换${key}"
       sed -i "s/{{$key}}/$value/" "$INPUT_TARGET"
     else
-      echo -e "\033[5;31m - $key的值未配置 \033[0m"
+      echo -e "\033[5;31m  - $key的值未配置 \033[0m"
       echo -e "\033[32m----\033[0m \r\n"
       exit 1
     fi
