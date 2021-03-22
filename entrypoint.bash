@@ -48,7 +48,7 @@ for key in ${array[@]}; do
     eval value=\$"${key}"
     # 转义value中的特殊字符（比如&符号，不转义会被下面的sed命令识别成特殊符号）
     value=${value/\&/\\&}
-    if (set -u; : $key); then
+    if (set -u; : ${key}); then
       echo -e "  - 替换${key}"
     else
       echo -e "\033[5;31m$key的值未配置 \033[0m"
