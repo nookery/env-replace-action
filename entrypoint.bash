@@ -63,8 +63,7 @@ for key in ${array[@]}; do
       echo -e "  - 替换${key}"
       sed -i "s/{{$key}}/$value/" "$INPUT_TARGET"
     else
-      echo "$key 未定义";
-      echo -e "\033[5;31m$key的值未配置 \033[0m"
+      echo -e "\033[5;31m - $key的值未配置 \033[0m"
       echo -e "\033[32m----\033[0m \r\n"
       exit 1
     fi
