@@ -51,6 +51,7 @@ for key in ${array[@]}; do
 
     echo $(env) > env
 
+    cat env
     if  grep -q "$key" env ; then
       echo "$key yes";
     else
