@@ -1,15 +1,17 @@
 #!/bin/bash
 
-if  grep -q APP_URL env ; then
-  echo yes;
+target = $(env | grep HELLO=)
+if [ $target == "" ] ; then
+  echo '变量HELLO未定义';
 else
   echo no;
 fi
 
-if  grep -q APP_TEST env ; then
-  echo yes;
+target = $(env | grep APP_ME | cut -d "=" -f 2)
+if [ $target == "" ] ; then
+  echo '变量APP_ME的值为空';
 else
-  echo no; 
+  echo no;
 fi
 
 exit;
