@@ -42,6 +42,9 @@ keys=$(eval echo $(sed -n "s/{{\([A-Z0-9a-z_]\{1,200\}\)}}$/\1/p" "$INPUT_TARGET
 # shellcheck disable=SC2206
 array=(${keys// / })
 
+echo $(env) > env
+cat env
+
 # 逐个替换
 # shellcheck disable=SC2068
 for key in ${array[@]}; do
@@ -49,9 +52,6 @@ for key in ${array[@]}; do
     # 转义value中的特殊字符（比如&符号，不转义会被下面的sed命令识别成特殊符号）
     value=${value/\&/\\&}
 
-    echo $(env) > env
-
-    cat env
     if  grep -q "$key" env ; then
       echo "$key yes";
     else
