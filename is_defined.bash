@@ -2,4 +2,5 @@
 
 set -u
 
-echo "$DB_TEST"
+#echo "$DB_TEST"
+echo "$DB_PASSWORD"
