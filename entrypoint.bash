@@ -52,7 +52,7 @@ for key in ${array[@]}; do
     value=${value/\&/\\&}
 
     # 找出配置文件中的环境变量，并替换，请根据实际的格式修改这里的表达式
-    echo -e "  - 替换${key}"
+    echo -e "  - 替换${key} => ${value}"
     sed -i "s/{{$key}}/$value/" "$INPUT_TARGET"
 done
 
