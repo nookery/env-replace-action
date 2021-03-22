@@ -20,7 +20,7 @@ chmod 400 key
 
 if [ "$INPUT_REMOTE_SCRIPT" ];then
   # 从远程服务器下载变量配置脚本
-  scp -i key -o "StrictHostKeyChecking no" -o "UserKnownHostsFile /dev/null" -P "$INPUT_PORT" "$INPUT_USERNAME"@"$INPUT_HOST":"$INPUT_REMOTE_SCRIPT" ./script
+  scp -i key -o "StrictHostKeyChecking no" -o "UserKnownHostsFile ~/.ssh/known_hosts" -P "$INPUT_PORT" "$INPUT_USERNAME"@"$INPUT_HOST":"$INPUT_REMOTE_SCRIPT" ./script
 
   # 执行变量配置脚本
   source ./script
