@@ -19,11 +19,13 @@ echo -e "\033[32m----\033[0m \r\n"
 echo "$INPUT_KEY" > key
 chmod 400 key
 
-# 从远程服务器下载变量配置脚本
-scp -i key -o "StrictHostKeyChecking no" -P "$INPUT_PORT" "$INPUT_USERNAME"@"$INPUT_HOST":"$INPUT_REMOTE_SCRIPT" ./script
+if [ $INPUT_REMOTE_SCRIPT ];then
+  # 从远程服务器下载变量配置脚本
+  scp -i key -o "StrictHostKeyChecking no" -P "$INPUT_PORT" "$INPUT_USERNAME"@"$INPUT_HOST":"$INPUT_REMOTE_SCRIPT" ./script
 
-# 执行变量配置脚本
-source ./script
+  # 执行变量配置脚本
+  source ./script
+fi
 
 #
 #--------------------------------------------------
