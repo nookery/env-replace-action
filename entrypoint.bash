@@ -42,7 +42,7 @@ cat script env.txt > variables.txt
 #--------------------------------------------------
 #
 
-echo -e "\033[32m---- 将${INPUT_TARGET}文件中的环境变量替换成配置的值 ----\033[0m"
+echo -e "\r\n\033[32m---- 将${INPUT_TARGET}文件中的环境变量替换成配置的值 ----\033[0m"
 
 # 找出配置文件中的所有的环境变量并存入数组中
 # shellcheck disable=SC2046
