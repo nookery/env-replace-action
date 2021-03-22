@@ -1,4 +1,4 @@
-name: Deploy
+name: Set Env in Action
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
     name: replace
     steps:
       - uses: actions/checkout@v2
-      - uses: nookery/env-replace-action@debug
+      - uses: nookery/env-replace-action@main
         env:
           APP_URL: test.com
           REDIS_PASSWORD: ''

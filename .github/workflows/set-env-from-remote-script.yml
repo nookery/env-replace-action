@@ -1,0 +1,29 @@
+name: Set Env from Remote Script
+
+on:
+  push:
+    branches: [ main, debug ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: replace
+    steps:
+      - uses: actions/checkout@v2
+      - uses: nookery/env-replace-action@main
+        env:
+          APP_URL: test.com
+          REDIS_PASSWORD: ''
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          remote_script: /www/set_env.sh
+
+      - name: 保留 .env 文件
+        uses: actions/upload-artifact@v2
+        with:
+         name: env
+         path: .env
+
