@@ -12,7 +12,7 @@ jobs:
     name: replace
     steps:
       - uses: actions/checkout@v2
-      - uses: nookery/env-replace-action@main
+      - uses: nookery/env-replace-action@debug
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           key: ${{ secrets.DEPLOY_KEY }}
