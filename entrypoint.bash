@@ -2,13 +2,11 @@
 
 echo -e "\033[32m---- 参数 ----\033[0m"
 echo -e "待处理的文件：$INPUT_TARGET"
-echo -e "变量脚本文件：$INPUT_USERNAME@$INPUT_HOST:$INPUT_REMOTE_SCRIPT"
-echo -e "\033[32m----\033[0m \r\n"
 
-echo -e "\033[32m---- 当前路径 ----\033[0m"
-# shellcheck disable=SC2046
-# shellcheck disable=SC2005
-echo $(pwd)
+if [ "$INPUT_REMOTE_SCRIPT" ];then
+  echo -e "变量脚本文件：$INPUT_USERNAME@$INPUT_HOST:$INPUT_REMOTE_SCRIPT"
+fi
+
 echo -e "\033[32m----\033[0m \r\n"
 
 #--------------------------------------------------
@@ -20,7 +18,7 @@ echo -e "\033[32m----\033[0m \r\n"
 echo "$INPUT_KEY" > key
 chmod 400 key
 
-if [ $INPUT_REMOTE_SCRIPT ];then
+if [ "$INPUT_REMOTE_SCRIPT" ];then
   # 从远程服务器下载变量配置脚本
   scp -i key -o "StrictHostKeyChecking no" -P "$INPUT_PORT" "$INPUT_USERNAME"@"$INPUT_HOST":"$INPUT_REMOTE_SCRIPT" ./script
 
