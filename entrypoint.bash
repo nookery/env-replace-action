@@ -1,10 +1,12 @@
 #!/bin/bash
 
-if  grep -q APP_URL $(env) ; then echo 'APP_URL yes';else echo 'APP_URL no'; fi
+echo $(env) > env
 
-if  grep -q APP_ME $(env) ; then echo 'APP_ME yes';else echo 'APP_ME no'; fi
+if  grep -q APP_URL env ; then echo 'APP_URL yes';else echo 'APP_URL no'; fi
 
-if  grep -q APP_HE $(env) ; then echo 'APP_HE yes';else echo 'APP_HE no'; fi
+if  grep -q APP_ME env ; then echo 'APP_ME yes';else echo 'APP_ME no'; fi
+
+if  grep -q APP_HE env ; then echo 'APP_HE yes';else echo 'APP_HE no'; fi
 
 exit;
 
