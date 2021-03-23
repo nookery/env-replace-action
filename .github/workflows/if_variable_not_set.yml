@@ -1,4 +1,4 @@
-name: Set Env in Action
+name: If Variable not Set
 
 on:
   push:
