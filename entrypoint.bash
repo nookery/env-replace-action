@@ -33,6 +33,7 @@ if [ "$INPUT_REMOTE_SCRIPT" ];then
   source ./script
   echo -e "\033[32m----\033[0m \r\n"
 else
+  echo '' > key
   echo '' > ./script
 fi
 
