@@ -1,0 +1,29 @@
+name: Set Env in Action
+
+on:
+  push:
+    branches: [ main, debug ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: replace
+    steps:
+      - uses: actions/checkout@v2
+      - uses: nookery/env-replace-action@main
+        env:
+          APP_URL: test.com
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: laravel
+          DB_USERNAME: ping
+          REDIS_PASSWORD: ''
+
+      - name: 保留 .env 文件
+        uses: actions/upload-artifact@v2
+        with:
+         name: env
+         path: .env
+
