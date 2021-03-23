@@ -20,24 +20,21 @@ echo -e "\033[32m----\033[0m \r\n"
 #--------------------------------------------------
 #
 
-# 复制私钥到本地
-echo "$INPUT_KEY" > key
-chmod 400 key
-
-
-echo -e "\033[32m---- 从远程服务器下载变量配置脚本 ----\033[0m"
-
 if [ "$INPUT_REMOTE_SCRIPT" ];then
+  # 复制私钥到本地
+  echo "$INPUT_KEY" > key
+  chmod 400 key
+
+  echo -e "\033[32m---- 从远程服务器下载变量配置脚本 ----\033[0m"
   # 从远程服务器下载变量配置脚本
   scp -i key -o "StrictHostKeyChecking no" -P "$INPUT_PORT" "$INPUT_USERNAME"@"$INPUT_HOST":"$INPUT_REMOTE_SCRIPT" ./script
 
   # 执行变量配置脚本
   source ./script
+  echo -e "\033[32m----\033[0m \r\n"
 else
   echo '' > ./script
 fi
-
-echo -e "\033[32m----\033[0m \r\n"
 
 #--------------------------------------------------
 #  将所有变量存入文件，用于下文判断变量是否存在
