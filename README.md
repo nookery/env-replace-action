@@ -1,6 +1,7 @@
 # Env Replace Action
 
-替换配置文件（如`.env`文件）中的预设值（如`{{DB_PASSWORD}}`）为当前环境中的配置值（如`password`）。
+替换配置文件（如`.env`文件）中的预设值（如`{{DB_PASSWORD}}`）为当前环境中的配置值（如`password`）。  
+支持从远程服务器下载变量配置脚本。
 
 ## 场景
 
