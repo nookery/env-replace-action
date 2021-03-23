@@ -8,35 +8,9 @@
 
 ## 输入参数
 
-### `host`
-
-**必须**   
-远程服务器地址。  
-如：`8.8.8.8`
-
-### `key`
-
-**必须**   
-使用SSH连接远程服务器时的私钥。  
-如：`${{ secrets.DEPLOY_KEY }}`
-
-### `remote_script`
-
-**必须**   
-远程服务器上配置变量的脚本。  
-如：`/www/set_env.sh`，文件内容：
-```text
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=love
-DB_USERNAME=root
-DB_PASSWORD=password
-FOO=BAR
-```
-
 ### `target`
 
-**可选**，默认：`.env`   
+**可选**，默认：`.env`。  
 当前项目中的需要替换预设值的配置文件。  
 如：`.env`，文件内容：
 ```text
@@ -46,6 +20,32 @@ DB_DATABASE={{DB_DATABASE}}
 DB_USERNAME={{DB_USERNAME}}
 DB_PASSWORD={{DB_PASSWORD}}
 FOO=ABC
+```
+
+### `host`
+
+**可选，需要从远程下载脚本时必须提供**。   
+远程服务器地址。  
+如：`8.8.8.8`。
+
+### `key`
+
+**可选，需要从远程下载脚本时必须提供**。   
+使用SSH连接远程服务器时的私钥。  
+如：`${{ secrets.DEPLOY_KEY }}`
+
+### `remote_script`
+
+**可选，需要从远程下载脚本时必须提供**。      
+远程服务器上配置变量的脚本。  
+如：`/www/set_env.sh`，文件内容：
+```text
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=love
+DB_USERNAME=root
+DB_PASSWORD=password
+FOO=BAR
 ```
 
 ## 例子
@@ -58,14 +58,13 @@ DB_DATABASE={{DB_DATABASE}}
 DB_USERNAME={{DB_USERNAME}}
 DB_PASSWORD={{DB_PASSWORD}}
 FOO=ABC
-
 ```
 ### 变量写在`GitHub Action`中
 ```yaml
 - uses: actions/checkout@v2
 - uses: nookery/env-replace-action@main
   env:
-    APP_URL: abc.com
+    DB_HOST: abc.com
 ```
 
 ### 变量写在远程的脚本文件中
