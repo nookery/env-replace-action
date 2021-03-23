@@ -1,10 +1,10 @@
 # Env Replace Action
 
-替换配置文件（如`.env`文件）中的预设值（如`APP_URL`）为当前环境中的配置值（如`http://abc.com`）。
+替换配置文件（如`.env`文件）中的预设值（如`{{DB_PASSWORD}}`）为当前环境中的配置值（如`password`）。
 
 ## 场景
 
-一些敏感的数据（如：DB_PASSWORD）不能存储在代码仓库中，可将其存储在生产服务器上，部署时设置真实值。
+一些敏感的数据（如：DB_PASSWORD）不能存储在代码仓库中，必须在部署时设置真实值。
 
 ## 输入参数
 
@@ -58,9 +58,21 @@ DB_DATABASE={{DB_DATABASE}}
 DB_USERNAME={{DB_USERNAME}}
 DB_PASSWORD={{DB_PASSWORD}}
 FOO=ABC
+
+```
+### 变量写在`GitHub Action`中
+```yaml
+- uses: actions/checkout@v2
+- uses: nookery/env-replace-action@main
+  env:
+    APP_URL: abc.com
 ```
 
-远程服务器中的`/www/set_env.sh`文件
+### 变量写在远程的脚本文件中
+
+当变量较多，或者为了统一管理，可将变量写在一个脚本文件中。
+
+远程服务器中的`/www/set_env.sh`文件：
 
 ```text
 DB_HOST=127.0.0.1
