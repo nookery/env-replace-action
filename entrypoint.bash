@@ -62,6 +62,7 @@ array=(${keys// / })
 
 # 逐个替换
 # shellcheck disable=SC2068
+hasError=false
 for key in ${array[@]}; do
     eval value=\$"${key}"
     # 转义value中的特殊字符（比如&符号，不转义会被下面的sed命令识别成特殊符号）
@@ -74,9 +75,14 @@ for key in ${array[@]}; do
     else
       echo -e "\033[5;31m- $key的值未配置 \033[0m"
       echo -e "\033[32m----\033[0m \r\n"
-      exit 1
+      $hasError=true
     fi
 done
+
+if [ $hasError == true ];then
+  echo -e "\033[5;31m---- 部分变量值未配置 \r\n \033[0m"
+  exit;
+fi
 
 echo -e "\033[32m---- 环境变量替换处理完成\r\n\033[0m"
 
