@@ -27,7 +27,7 @@ if [ "$INPUT_REMOTE_SCRIPT" ];then
   echo "$INPUT_KEY" > key
   chmod 400 key
 
-  if [ $INPUT_KEY == ""];then
+  if [ "$INPUT_KEY" == ""];then
     echo -e "\033[5;31m---- 连接远程服务器的私钥为空 \r\n \033[0m"
     exit 1
   fi
