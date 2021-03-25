@@ -21,11 +21,17 @@ echo -e "\033[32m----\033[0m \r\n"
 #
 
 if [ "$INPUT_REMOTE_SCRIPT" ];then
+  echo -e "\033[32m---- 从远程服务器下载变量配置脚本 ----\033[0m"
+
   # 复制私钥到本地
   echo "$INPUT_KEY" > key
   chmod 400 key
 
-  echo -e "\033[32m---- 从远程服务器下载变量配置脚本 ----\033[0m"
+  if [ "$INPUT_KEY" == ""];then
+    echo -e "\033[5;31m---- 连接远程服务器的私钥为空 \r\n \033[0m"
+    exit 1
+  fi
+
   # 从远程服务器下载变量配置脚本
   scp -i key -o "StrictHostKeyChecking no" -P "$INPUT_PORT" "$INPUT_USERNAME"@"$INPUT_HOST":"$INPUT_REMOTE_SCRIPT" ./script
 
