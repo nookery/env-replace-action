@@ -80,7 +80,7 @@ done
 
 if [ $hasError == true ];then
   echo -e "\033[5;31m---- 部分变量值未配置 \r\n \033[0m"
-  exit;
+  exit 1
 fi
 
 echo -e "\033[32m---- 环境变量替换处理完成\r\n\033[0m"
