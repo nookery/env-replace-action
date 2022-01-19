@@ -13,6 +13,10 @@ if [ "$INPUT_REMOTE_SCRIPT" ];then
   echo -e "变量脚本文件：$INPUT_USERNAME@$INPUT_HOST:$INPUT_REMOTE_SCRIPT"
 fi
 
+if [ "$INPUT_LOCAL_SCRIPT" ];then
+  echo -e "变量脚本文件：$INPUT_LOCAL_SCRIPT"
+fi
+
 echo -e "\033[32m----\033[0m \r\n"
 
 #--------------------------------------------------
@@ -44,12 +48,24 @@ else
 fi
 
 #--------------------------------------------------
+#  加载本地变量配置脚本
+#--------------------------------------------------
+#
+
+if [ "$INPUT_LOCAL_SCRIPT" ];then
+  echo -e "\033[32m---- 从本地加载变量配置脚本 ----\033[0m"
+
+  # 执行变量配置脚本
+  source "$INPUT_LOCAL_SCRIPT"
+  echo -e "\033[32m----\033[0m \r\n"
+fi
+
+#--------------------------------------------------
 #  将所有变量存入文件，用于下文判断变量是否存在
 #--------------------------------------------------
 #
 
-env > env.txt
-cat script env.txt > variables.txt
+env > variables.txt
 
 #
 #--------------------------------------------------
@@ -103,6 +119,5 @@ echo -e "\033[32m---- 环境变量替换处理完成\r\n\033[0m"
 
 cat /dev/null > ~/.bash_history
 rm key
-rm env.txt
 rm variables.txt
 rm script
