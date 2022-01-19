@@ -37,14 +37,14 @@ if [ "$INPUT_REMOTE_SCRIPT" ];then
   fi
 
   # 从远程服务器下载变量配置脚本
-  scp -i key -o "StrictHostKeyChecking no" -P "$INPUT_PORT" "$INPUT_USERNAME"@"$INPUT_HOST":"$INPUT_REMOTE_SCRIPT" ./script
+  scp -i key -o "StrictHostKeyChecking no" -P "$INPUT_PORT" "$INPUT_USERNAME"@"$INPUT_HOST":"$INPUT_REMOTE_SCRIPT" ./remote_script
 
   # 执行变量配置脚本
-  source ./script
+  source ./remote_script
   echo -e "\033[32m----\033[0m \r\n"
 else
   echo '' > key
-  echo '' > ./script
+  echo '' > ./remote_script
 fi
 
 #--------------------------------------------------
@@ -56,8 +56,11 @@ if [ "$INPUT_LOCAL_SCRIPT" ];then
   echo -e "\033[32m---- 从本地加载变量配置脚本 ----\033[0m"
 
   # 执行变量配置脚本
-  source "$INPUT_LOCAL_SCRIPT"
+  source $INPUT_LOCAL_SCRIPT
+  cat $INPUT_LOCAL_SCRIPT > ./local_script
   echo -e "\033[32m----\033[0m \r\n"
+else
+  echo '' > ./local_script
 fi
 
 #--------------------------------------------------
@@ -65,7 +68,8 @@ fi
 #--------------------------------------------------
 #
 
-env > variables.txt
+env > env.txt
+cat remote_script local_script env.txt > variables.txt
 
 #
 #--------------------------------------------------
@@ -120,4 +124,5 @@ echo -e "\033[32m---- 环境变量替换处理完成\r\n\033[0m"
 cat /dev/null > ~/.bash_history
 rm key
 rm variables.txt
-rm script
+rm remote_script
+rm local_script
