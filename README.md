@@ -49,6 +49,20 @@ DB_PASSWORD=password
 FOO=BAR
 ```
 
+### `local_script`
+
+**可选，需要从本地加载脚本时必须提供**。      
+本地配置变量的脚本。  
+如：`set_env.sh`，文件内容：
+```text
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=love
+DB_USERNAME=root
+DB_PASSWORD=password
+FOO=BAR
+```
+
 ## 例子
 
 当前项目的`.env`文件：
@@ -93,6 +107,41 @@ GitHub Action流程文件：
     host: 8.8.8.8
     key: ${{ secrets.DEPLOY_KEY }} # 引用配置，SSH私钥
     remote_script: /www/set_env.sh
+```
+
+替换后的当前项目的`.env`文件：
+```text
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=love
+DB_USERNAME=root
+DB_PASSWORD=password
+FOO=ABC
+```
+
+### 变量写在本地的脚本文件中
+
+当变量较多，或者为了统一管理，可将变量写在一个脚本文件中。
+
+本地的`set_env.sh`文件：
+
+```text
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=love
+DB_USERNAME=root
+DB_PASSWORD=password
+FOO=BAR
+```
+
+GitHub Action流程文件：
+```yaml
+- uses: actions/checkout@v2
+- uses: nookery/env-replace-action@main
+  env:
+    APP_URL: abc.com
+  with:
+    local_script: set_env.sh
 ```
 
 替换后的当前项目的`.env`文件：
