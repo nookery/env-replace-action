@@ -1,6 +1,9 @@
 name: 'Env Replacer'
 description: '替换配置文件中的预设值'
 inputs:
+  local_script:
+    description: '本地脚本的路径'
+    required: false
   remote_script:
     description: '远程脚本的路径'
     required: true
