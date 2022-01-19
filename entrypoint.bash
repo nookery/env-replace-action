@@ -10,11 +10,11 @@ echo -e "\033[32m---- 参数 ----\033[0m"
 echo -e "待处理的文件：$INPUT_TARGET"
 
 if [ "$INPUT_REMOTE_SCRIPT" ];then
-  echo -e "变量脚本文件：$INPUT_USERNAME@$INPUT_HOST:$INPUT_REMOTE_SCRIPT"
+  echo -e "远程变量脚本文件：$INPUT_USERNAME@$INPUT_HOST:$INPUT_REMOTE_SCRIPT"
 fi
 
 if [ "$INPUT_LOCAL_SCRIPT" ];then
-  echo -e "变量脚本文件：$INPUT_LOCAL_SCRIPT"
+  echo -e "本地变量脚本文件：$INPUT_LOCAL_SCRIPT"
 fi
 
 echo -e "\033[32m----\033[0m \r\n"
@@ -41,6 +41,9 @@ if [ "$INPUT_REMOTE_SCRIPT" ];then
 
   # 执行变量配置脚本
   source ./remote_script
+  
+  echo -e "已加载远程变量脚本文件：$INPUT_REMOTE_SCRIPT"
+  
   echo -e "\033[32m----\033[0m \r\n"
 else
   echo '' > key
@@ -58,6 +61,9 @@ if [ "$INPUT_LOCAL_SCRIPT" ];then
   # 执行变量配置脚本
   source $INPUT_LOCAL_SCRIPT
   cat $INPUT_LOCAL_SCRIPT > ./local_script
+  
+  echo -e "已加载本地变量脚本文件：$INPUT_LOCAL_SCRIPT"
+  
   echo -e "\033[32m----\033[0m \r\n"
 else
   echo '' > ./local_script
